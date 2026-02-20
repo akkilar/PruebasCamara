@@ -1,5 +1,22 @@
-import cv2
-from ultralytics import YOLO
+#!/usr/bin/env python
+import sys
+import platform
+
+# Creado nuevo environment con:
+# python -m venv venv
+# source venv/bin/activate (Linux/Mac) o venv\Scripts\activate (Windows)
+# pip install ultralytics opencv-python
+
+try:
+    import cv2
+    from ultralytics import YOLO
+except ImportError as e:
+    print(f"Error crítico de importación: {e}")
+    print(f"Estás ejecutando este script con: {sys.executable}")
+    print("Asegúrate de activar tu entorno virtual o seleccionarlo en VS Code (Ctrl+Shift+P > Select Interpreter).")
+    exit()
+
+print(f"Iniciando en OS: {platform.system()} ({platform.release()})")
 
 # 1. Configuración de acceso
 USUARIO = 'tu_usuario_tapo'
