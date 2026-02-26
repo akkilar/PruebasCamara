@@ -70,7 +70,7 @@ def generar_frames():
             color_texto = (0, 255, 0) 
             grosor = 3
         else: 
-            color_texto = (255, 0, 0)
+            color_texto = (0, 0, 255)
             grosor = 2
         cv2.putText(annotated_frame, texto_contador, (10, alto - 60), cv2.FONT_HERSHEY_SIMPLEX, 1.2, color_texto, grosor)
         
