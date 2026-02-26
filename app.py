@@ -64,15 +64,21 @@ def generar_frames():
         annotated_frame = results[0].plot()
         
         # Mostrar contador
+        alto, ancho = annotated_frame.shape[:2]
         texto_contador = f"Personas: {num_personas_actual}/{PERSONAS_ESPERADAS}"
-        color_texto = (0, 255, 0) if num_personas_actual >= PERSONAS_ESPERADAS else (0, 0, 255)
-        cv2.putText(annotated_frame, texto_contador, (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.2, color_texto, 2)
+        if num_personas_actual >= PERSONAS_ESPERADAS:
+            color_texto = (0, 255, 0) 
+            grosor = 3
+        else: 
+            color_texto = (255, 0, 0)
+            grosor = 2
+        cv2.putText(annotated_frame, texto_contador, (10, alto - 60), cv2.FONT_HERSHEY_SIMPLEX, 1.2, color_texto, grosor)
         
         # Mostrar alerta si es necesario
         if alerta_activa:
             alerta_texto = f"¡ALERTA! Faltan {PERSONAS_ESPERADAS - num_personas_actual} persona(s)"
-            cv2.rectangle(annotated_frame, (0, 60), (annotated_frame.shape[1], 110), (0, 0, 255), -1)
-            cv2.putText(annotated_frame, alerta_texto, (10, 95), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+            cv2.rectangle(annotated_frame, (0, alto - 45), (ancho, alto), (0, 0, 255), -1)
+            cv2.putText(annotated_frame, alerta_texto, (10, alto - 15), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
         
         # Codificar frame
         ret, buffer = cv2.imencode('.jpg', annotated_frame)

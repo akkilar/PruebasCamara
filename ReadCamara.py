@@ -44,16 +44,17 @@ while True:
     annotated_frame = results[0].plot()
 
     # 8. Mostrar contador de personas detectadas
+    alto, ancho = annotated_frame.shape[:2]
     texto_contador = f"Personas detectadas: {num_personas}/{PERSONAS_ESPERADAS}"
     color_texto = (0, 255, 0) if num_personas >= PERSONAS_ESPERADAS else (0, 0, 255)
-    cv2.putText(annotated_frame, texto_contador, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, color_texto, 2)
+    cv2.putText(annotated_frame, texto_contador, (ancho - 10, alto - 50), cv2.FONT_HERSHEY_SIMPLEX, 1, color_texto, 2)
 
     # 9. Mostrar aviso si hay menos personas de las esperadas
     if num_personas < PERSONAS_ESPERADAS:
         # Mostrar banner de alerta
         alerta_texto = f"¡ALERTA! Faltan {PERSONAS_ESPERADAS - num_personas} persona(s)"
-        cv2.rectangle(annotated_frame, (0, 50), (annotated_frame.shape[1], 100), (0, 0, 255), -1)
-        cv2.putText(annotated_frame, alerta_texto, (10, 85), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 3)
+        cv2.rectangle(annotated_frame, (0, alto - 45), (annotated_frame.shape[1], 100), (0, 0, 255), -1)
+        cv2.putText(annotated_frame, alerta_texto, (10, alto - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 3)
         print(f"⚠️  ALERTA: {alerta_texto}")
 
     # Mostrar el frame con la detección
